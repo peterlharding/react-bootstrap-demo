@@ -1,0 +1,8 @@
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand>img {
+    max-width: 50px;
+    padding: 3px  10px 3px 5px;
+}

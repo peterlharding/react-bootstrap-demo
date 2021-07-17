@@ -1,0 +1,26 @@
+.header-footer-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.header-footer-layout-header {
+    order: -99;
+}
+
+.header-footer-layout-body {
+    order: 0;
+    flex: 1 0 auto;
+}
+
+.header-footer-layout-footer {
+    order: 99;
+    /*flex: 0;*/
+    margin-top: auto;
+    /*flex-shrink: 0;*/
+    background-color:#212529;
+    color: white;
+    height: 100px;
+    padding: 10px;
+}
