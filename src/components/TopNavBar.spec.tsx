@@ -46,9 +46,10 @@ describe('TopNavBar', () => {
   it('navigates client-side from a dropdown item', async () => {
     const {user} = renderWithProviders(<App />, {route: '/home'});
     await user.click(navbar().getByRole('button', {name: 'Experimental'}));
-    await user.click(screen.getByText('Two - The React Counter'));
+    const menu = () => within(document.querySelector('.navbar .dropdown-menu') as HTMLElement);
+    await user.click(menu().getByText('Two - The React Counter'));
     expect(screen.getByRole('heading', {name: 'Two works!'})).toBeInTheDocument();
-    expect(screen.getByText('Two - The React Counter')).toHaveClass('active');
+    expect(menu().getByText('Two - The React Counter')).toHaveClass('active');
     expect(navbar().getByRole('link', {name: 'Home'})).not.toHaveClass('active');
   });
 });

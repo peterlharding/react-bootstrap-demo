@@ -8,6 +8,12 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Changed
+
+- The About page describes the project instead of showing placeholder text: the current version, the experiments, the stack with major versions read from `package.json`, credits, source and licence.
+- `/home` is a landing page with a short introduction, Get started and About buttons, a card for each experiment and the current version, instead of placeholder text.
+- The Help page explains how to get around the app, run it locally, use the npm commands, add pages and state, and cut a release, instead of showing placeholder text.
+
 ## [0.5.0] - 2026-09-18
 
 ### Added

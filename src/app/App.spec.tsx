@@ -8,18 +8,18 @@ const pageHeading = () =>
 
 describe('App routes', () => {
   it.each([
-    ['/', 'React Bootstrap Demo'],
-    ['/home', 'React Bootstrap Demo'],
+    ['/', 'Sandpit'],
+    ['/home', 'Sandpit'],
     ['/modal-example', null],
     ['/one', 'Working with Colour Pickers'],
     ['/two', 'Two works!'],
-    ['/help', 'Help for Starter'],
+    ['/help', 'Help'],
     ['/release-notes', 'Release Notes'],
     ['/about', 'About'],
   ])('renders %s', (route, heading) => {
     renderWithProviders(<App />, {route});
     if (heading) {
-      expect(pageHeading()).toHaveTextContent(heading);
+      expect(pageHeading()).toHaveTextContent(new RegExp(`^${heading}$`));
     } else {
       expect(screen.getByRole('button', {name: 'Launch demo modal'})).toBeInTheDocument();
     }
@@ -30,9 +30,9 @@ describe('App routes', () => {
     const footer = document.querySelector('.header-footer-layout-footer') as HTMLElement;
 
     await user.click(within(footer).getByRole('link', {name: 'Help'}));
-    expect(pageHeading()).toHaveTextContent('Help for Starter');
+    expect(pageHeading()).toHaveTextContent(/^Help$/);
 
     await user.click(within(footer).getByRole('link', {name: 'About'}));
-    expect(pageHeading()).toHaveTextContent('About');
+    expect(pageHeading()).toHaveTextContent(/^About$/);
   });
 });

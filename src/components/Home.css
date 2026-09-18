@@ -1,0 +1,46 @@
+.home-hero {
+    padding: 3rem 0 2rem;
+}
+
+.home-hero .lead {
+    margin: 1rem auto 1.5rem;
+    max-width: 40rem;
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.home-section-title {
+    margin-bottom: 1rem;
+}
+
+.home-card {
+    text-align: left;
+    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.home-card:hover,
+.home-card:focus-within {
+    box-shadow: var(--bs-box-shadow);
+    transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-card {
+        transition: none;
+    }
+
+    .home-card:hover,
+    .home-card:focus-within {
+        transform: none;
+    }
+}
+
+.home-whats-new {
+    color: var(--bs-secondary-color);
+    margin-top: 2.5rem;
+}
