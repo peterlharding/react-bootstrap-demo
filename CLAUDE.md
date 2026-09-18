@@ -10,7 +10,9 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 ## Commands
 
 - `npm install` (or `make install`) - install dependencies. Vite 8 needs Node 20.19+ or 22.12+.
-- `npm run dev` / `npm start` (or `make run`) - Vite dev server on port 3004 (`server.port` in `vite.config.ts`, `strictPort`).
+- `npm run dev` / `npm start` (or `make run`) - Vite dev server.
+  `vite.config.ts` reads `HOST` and `APP_PORT` from `.env` (gitignored; copy `setup/env.template`) or the shell, which wins over `.env`.
+  Without them it serves on `localhost:3004`; `strictPort` makes a busy port an error instead of silently picking another.
 - `npm run build` - typecheck with `tsc -b`, then production build into `dist/`.
 - `npm run preview` - serve the built `dist/` locally.
 - `npm run lint` - ESLint (flat config in `eslint.config.js`: typescript-eslint, react-hooks, react-refresh).

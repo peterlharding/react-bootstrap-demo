@@ -12,6 +12,8 @@ Add entries under `Unreleased` as changes are made.
 
 - `npm run release` now commits, tags and pushes the release and creates the GitHub Release from the changelog; `--no-publish` only updates the files.
 - `npm run release:publish -- <version>` creates the GitHub Release for an already pushed tag.
+- The dev server reads `HOST` and `APP_PORT` from `.env` or the environment; `setup/env.template` documents them.
+  Without them it still serves on `localhost:3004`.
 
 ## [0.2.0] - 2026-09-18
 
