@@ -8,6 +8,8 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-18
+
 ### Changed
 
 - Upgraded React 17 to 19, React Router 5 to 8, react-bootstrap 1 to 2, React Redux 7 to 9 and Redux Toolkit 1 to 2.
