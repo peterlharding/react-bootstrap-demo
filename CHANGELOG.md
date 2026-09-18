@@ -8,6 +8,8 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-18
+
 ### Fixed
 
 - Page headings line up with the text below them instead of being indented.
