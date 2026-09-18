@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A small "sandpit" starter kit: Vite + TypeScript + React 17 with Bootstrap 5 CSS, react-bootstrap 1.x, React Router v5 and Redux Toolkit.
+A small "sandpit" starter kit: Vite + TypeScript + React 19 with Bootstrap 5 CSS, react-bootstrap 2, React Router 8 and Redux Toolkit 2.
 It was originally a Create React App project; the Redux `counter` feature (from the CRA redux-typescript template) is kept as the reference model for adding new state features.
 
 ## Commands
@@ -30,13 +30,17 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 - `vite.config.ts` splits third-party code into `vendor` and `lorem` chunks; `react-lorem-ipsum` alone is over 400 kB, so keep it out of the vendor chunk to stay under the 500 kB chunk warning.
 - TypeScript is pinned to 6.x because typescript-eslint does not support TypeScript 7 yet.
 - Tailwind 1.9 is loaded from unpkg in `index.html`, in addition to Bootstrap.
+- `react-color` and `react-lorem-ipsum` are unmaintained and rely on function-component `defaultProps`, which React 19 ignores.
+  Pass their props explicitly (for example `<LoremIpsum p={5} random startWithLoremIpsum />`) instead of relying on library defaults.
 
 ## Architecture
 
 - `src/index.tsx` wraps `App` in the Redux `Provider` and imports the Bootstrap CSS globally.
-- `src/app/App.tsx` owns routing: a React Router v5 `<Switch>` of `exact` routes, rendered inside `HeaderFooterLayout` (a compound component with `.Header`, `.Body`, `.Footer` slots, sticky footer via flexbox in `HeaderFooterLayout.css`).
-- `src/components/TopNavBar.tsx` is the navigation menu; nav items use `react-router-bootstrap`'s `LinkContainer` so Bootstrap `Nav.Link`/`NavDropdown.Item` elements route client-side.
-  Adding a page means adding a component in `src/components/`, a `<Route>` in `App.tsx` and a `LinkContainer` entry in `TopNavBar.tsx`.
+- `src/app/App.tsx` owns routing: a React Router 8 `<Routes>` of `<Route element={...}>` in declarative mode (`BrowserRouter`), rendered inside `HeaderFooterLayout` (a compound component with `.Header`, `.Body`, `.Footer` slots, sticky footer via flexbox in `HeaderFooterLayout.css`).
+- `src/components/TopNavBar.tsx` is the navigation menu; `Nav.Link`/`NavDropdown.Item` use `as={NavLink}` from `react-router` so they route client-side and get the `active` class.
+  Adding a page means adding a component in `src/components/`, a `<Route>` in `App.tsx` and a nav item in `TopNavBar.tsx`.
+- React Router 8 has no `react-router-dom` package: import everything from `react-router` (only `RouterProvider`/`HydratedRouter` come from `react-router/dom`).
+  Do not reintroduce `react-router-bootstrap`; it depends on `react-router-dom`.
 - `src/app/store.ts` configures the store and exports `RootState`, `AppDispatch` and `AppThunk`; `src/app/hooks.ts` exports typed `useAppDispatch`/`useAppSelector`, which should be used instead of the plain react-redux hooks.
 - `src/features/<name>/` follows the Redux Toolkit "feature folder" pattern: `<name>Slice.ts` (slice, actions, selectors, thunks), a component, CSS module and `*.spec.ts` reducer tests.
   New slices must be registered in the `reducer` map in `store.ts`.

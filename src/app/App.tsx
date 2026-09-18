@@ -1,10 +1,10 @@
 
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link
-} from "react-router-dom";
+} from 'react-router';
 
 import TopNavBar from '../components/TopNavBar';
 import {HeaderFooterLayout} from '../components/HeaderFooterLayout';
@@ -33,20 +33,20 @@ export const App = () => {
 
         <HeaderFooterLayout.Body>
           <div>
-            <Switch>
-              <Route path="/"                        exact component={Home} />
-              <Route path="/home"                    exact component={Home} />
+            <Routes>
+              <Route path="/"                        element={<Home />} />
+              <Route path="/home"                    element={<Home />} />
 
-              <Route path="/modal-example"           exact component={ModalExample} />
+              <Route path="/modal-example"           element={<ModalExample />} />
 
-              <Route path="/help"                    exact component={Help} />
-              <Route path="/release-notes"           exact component={ReleaseNotes} />
-              <Route path="/about"                   exact component={About} />
+              <Route path="/help"                    element={<Help />} />
+              <Route path="/release-notes"           element={<ReleaseNotes />} />
+              <Route path="/about"                   element={<About />} />
 
-              <Route path="/one"                     exact component={One} />
-              <Route path="/two"                     exact component={Two} />
+              <Route path="/one"                     element={<One />} />
+              <Route path="/two"                     element={<Two />} />
 
-            </Switch>
+            </Routes>
             <div style={{padding: '10px'}}></div>
           </div>
         </HeaderFooterLayout.Body >

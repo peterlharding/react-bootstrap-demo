@@ -1,5 +1,5 @@
 
-import {LinkContainer} from 'react-router-bootstrap'
+import {Link, NavLink} from 'react-router';
 
 import {NavDropdown} from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
@@ -13,44 +13,30 @@ const TopNavBar = () => {
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='lg' style={{width: '100%'}}>
-        <Navbar.Brand href='/home'>
+        <Navbar.Brand as={Link} to='/home'>
             <img alt='' src={logo} style={{width: 100, marginTop: -7}} />
             &#9776; Sandpit
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='mr-auto'>
+          <Nav className='me-auto'>
 
-            <LinkContainer to='/home'>
-              <Nav.Link eventKey={1}>Home</Nav.Link>
-            </LinkContainer>
+            <Nav.Link as={NavLink} to='/home'>Home</Nav.Link>
 
-            <NavDropdown title='Experimental' id='basic-nav-dropdown'>
+            <NavDropdown title='Experimental' id='experimental-nav-dropdown'>
 
-              <LinkContainer to='/modal-example'>
-                <NavDropdown.Item eventKey={4.5}>Modal Example</NavDropdown.Item>
-              </LinkContainer>
+              <NavDropdown.Item as={NavLink} to='/modal-example'>Modal Example</NavDropdown.Item>
               <NavDropdown.Divider />
-              <LinkContainer to='/one'>
-                <NavDropdown.Item eventKey={4.6}>One - Color Picker</NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to='/two'>
-                <NavDropdown.Item eventKey={4.7}>Two - The React Counter</NavDropdown.Item>
-              </LinkContainer>
+              <NavDropdown.Item as={NavLink} to='/one'>One - Color Picker</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to='/two'>Two - The React Counter</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title='Help' id='basic-nav-dropdown'>
-              <LinkContainer to='/help'>
-                <NavDropdown.Item eventKey={5.1}>Help</NavDropdown.Item>
-              </LinkContainer>
+            <NavDropdown title='Help' id='help-nav-dropdown'>
+              <NavDropdown.Item as={NavLink} to='/help'>Help</NavDropdown.Item>
               <NavDropdown.Divider />
-              <LinkContainer to='/release-notes'>
-                <NavDropdown.Item eventKey={5.2}>Release Notes</NavDropdown.Item>
-              </LinkContainer>
+              <NavDropdown.Item as={NavLink} to='/release-notes'>Release Notes</NavDropdown.Item>
               <NavDropdown.Divider />
-              <LinkContainer to='/about'>
-                <NavDropdown.Item eventKey={5.3}>About</NavDropdown.Item>
-              </LinkContainer>
+              <NavDropdown.Item as={NavLink} to='/about'>About</NavDropdown.Item>
             </NavDropdown>
 
           </Nav>

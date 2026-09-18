@@ -8,6 +8,24 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded React 17 to 19, React Router 5 to 8, react-bootstrap 1 to 2, React Redux 7 to 9 and Redux Toolkit 1 to 2.
+- Routing now imports from `react-router`; the `react-router-dom` package no longer exists in v8.
+- Navbar links use react-bootstrap's `as={NavLink}` instead of `react-router-bootstrap`, which does not support React Router 8.
+- React, React DOM and React Router are split into their own build chunk.
+
+### Fixed
+
+- The navbar brand link navigates within the app instead of reloading the page.
+- The modal close button works and renders as the Bootstrap 5 close icon.
+- The lorem ipsum on the Home, Help and About pages is random again under React 19, which ignores the library's defaults.
+- The two navbar dropdowns no longer share a DOM id.
+
+### Removed
+
+- `react-router-dom`, `react-router-bootstrap` and outdated `@types` packages for libraries that now ship their own types.
+
 ## [0.3.0] - 2026-09-18
 
 ### Added
