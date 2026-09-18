@@ -8,6 +8,10 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Added
+
+- `.markdownlint.json`, which allows repeated headings in different sections (such as each version's Added and Changed) and turns off the line-length rule; README lint issues fixed.
+
 ### Changed
 
 - The One page explains how its eight react-color pickers share one colour in React state, shows the current colour, and describes each picker, instead of placeholder text.
