@@ -8,6 +8,8 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-09-18
+
 ### Changed
 
 - The About page describes the project instead of showing placeholder text: the current version, the experiments, the stack with major versions read from `package.json`, credits, source and licence.
