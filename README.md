@@ -8,9 +8,8 @@ Starter kit - sandpit
 
 For more information about Redux Toolkit see here:
 
-* https://redux-toolkit.js.org/
-* https://redux-toolkit.js.org/introduction/getting-started
-* https://redux-toolkit.js.org/rtk-query/overview
+* <https://redux-toolkit.js.org/>
+* <https://redux-toolkit.js.org/introduction/getting-started>
+* <https://redux-toolkit.js.org/rtk-query/overview>
 
-
-With much helpful advice and guidance from Ben Golding of ObjectCraft (http://object-craft.com.au/).
+With much helpful advice and guidance from Ben Golding of ObjectCraft (<http://object-craft.com.au/>).
