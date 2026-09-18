@@ -8,6 +8,8 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-18
+
 ### Added
 
 - Playwright E2E tests (`npm run test:e2e`) against the production build, covering navigation, the Redux counter, colour pickers, the modal and release notes, and failing on any console error.
