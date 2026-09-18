@@ -18,13 +18,9 @@ interface Color {
   hex: string
 }
 
-const getText = (no: number) => {
-  const x = loremIpsum({ p: 3, random: true });
-
-  console.log(x);
-
+const getText = () => {
   return (
-    x.map((paragraph, index) => (
+    loremIpsum({ p: 3, random: true }).map((paragraph, index) => (
       <p className="text" key={index}>
         {paragraph}
       </p>
@@ -34,7 +30,7 @@ const getText = (no: number) => {
 
 const One = () => {
   
-  const [text] = useState(getText(5));
+  const [text] = useState(getText);
 
   const [background, setBackground] = useState('#fff');
 

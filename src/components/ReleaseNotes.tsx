@@ -1,32 +1,34 @@
+import {marked} from 'marked';
 
-const ReleaseNotes = () => {
+import './ReleaseNotes.css';
 
-    const h3 = 'text-info';
-    const h4 = 'text-success';
+// Generated from CHANGELOG.md by scripts/changelog.mjs, bundled at build time.
+const notesFiles = import.meta.glob<string>('../../release_notes/v*.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+});
 
-    return (
-        <div className='container text-left p-2' style={{width: '80%'}}>
+const versionOf = (path: string) =>
+    (/v(\d+)\.(\d+)\.(\d+)\.md$/.exec(path) ?? []).slice(1).map(Number);
 
-            <h1 className='text-primary'>Release Notes</h1>
+const newestFirst = ([a]: [string, string], [b]: [string, string]) => {
+    const [va, vb] = [versionOf(a), versionOf(b)];
+    return vb[0] - va[0] || vb[1] - va[1] || vb[2] - va[2];
+};
 
+const releases = Object.entries(notesFiles)
+    .sort(newestFirst)
+    .map(([path, markdown]) => ({path, html: marked.parse(markdown, {async: false})}));
 
-            <h3 className={h3}>2021-07-14</h3>
+const ReleaseNotes = () => (
+    <div className='container text-left p-2' style={{width: '80%'}}>
+        <h1 className='text-primary'>Release Notes</h1>
 
-            <h4 className={h4}>Version 0.1.1</h4>
-            <ul>
-                <li>Add in some Experimental components.</li>
-            </ul>
-
-            <h3 className={h3}>2021-07-14</h3>
-
-            <h4 className={h4}>Version 0.1.0</h4>
-            <ul>
-                <li>Initial implementation of demo project.</li>
-            </ul>
-
-        </div>
-    );
-
-}
+        {releases.map(({path, html}) => (
+            <section key={path} className='release-notes' dangerouslySetInnerHTML={{__html: html}} />
+        ))}
+    </div>
+);
 
 export default ReleaseNotes;
