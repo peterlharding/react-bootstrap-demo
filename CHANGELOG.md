@@ -8,6 +8,8 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-18
+
 ### Added
 
 - `npm run release` now commits, tags and pushes the release and creates the GitHub Release from the changelog; `--no-publish` only updates the files.
