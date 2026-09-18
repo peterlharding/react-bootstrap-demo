@@ -9,7 +9,7 @@ import {experiments} from '../app/experiments';
 import './Home.css';
 
 const Home = () => (
-  <div className='container home' style={{width: '80%'}}>
+  <div className='container page-container home'>
     <section className='home-hero'>
       <h1 className='display-5 text-info'>Sandpit</h1>
       <p className='lead'>

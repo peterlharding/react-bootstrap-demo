@@ -39,10 +39,10 @@ const One = () => {
   };
   
   return (
-      <div className='container text-left' style={{width: '80%', background: background}}>
-          <h1 className='text-info p-2'>Working with Colour Pickers</h1>
+      <div className='container page-container text-start' style={{background: background}}>
+          <h1 className='text-info py-2'>Working with Colour Pickers</h1>
 
-          <h2>See - <a href="https://casesandberg.github.io/react-color/" target="_blank" rel="noreferrer">https://casesandberg.github.io/react-color/</a></h2>
+          <h2 className='text-break'>See - <a href="https://casesandberg.github.io/react-color/" target="_blank" rel="noreferrer">https://casesandberg.github.io/react-color/</a></h2>
 
           <hr></hr>
 
@@ -50,50 +50,53 @@ const One = () => {
 
           <hr></hr>
 
-          <h1 style={{padding: '10px'}}>Block Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Block Picker</h1>
           <BlockPicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
-          <h1 style={{padding: '10px'}}>Chrome Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Chrome Picker</h1>
           <ChromePicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
-          <h1 style={{padding: '10px'}}>Circle Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Circle Picker</h1>
           <CirclePicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
-          <h1 style={{padding: '10px'}}>Github Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Github Picker</h1>
           <GithubPicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
 
-          <h1 style={{padding: '10px'}}>Hue Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Hue Picker</h1>
           <HuePicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
-          <h1 style={{padding: '10px'}}>Photoshop Picker</h1>
-          <PhotoshopPicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
+          <h1 style={{padding: '10px 0'}}>Photoshop Picker</h1>
+          {/* The Photoshop picker is a fixed 513px wide, so let it scroll on narrow screens. */}
+          <div className='overflow-x-auto pb-2'>
+            <PhotoshopPicker
+              color={ background }
+              onChangeComplete={ handleChangeComplete }
+            />
+          </div>
 
-          <h1 style={{padding: '10px'}}>Sketch Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Sketch Picker</h1>
           <SketchPicker
             color={ background }
             onChangeComplete={ handleChangeComplete }
           />
 
-          <h1 style={{padding: '10px'}}>Twitter Picker</h1>
+          <h1 style={{padding: '10px 0'}}>Twitter Picker</h1>
           <TwitterPicker
             color={ background }
             onChangeComplete={ handleChangeComplete }

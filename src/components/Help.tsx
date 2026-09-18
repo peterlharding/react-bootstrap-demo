@@ -13,8 +13,8 @@ const commands = [
 ];
 
 const Help = () => (
-  <div className='container text-left page-content' style={{width: '80%'}}>
-    <h1 className='text-info p-2'>Help</h1>
+  <div className='container page-container page-content text-start'>
+    <h1 className='text-info py-2'>Help</h1>
 
     <p className='lead'>
       How to find your way around the Sandpit, and how to run and extend it yourself.

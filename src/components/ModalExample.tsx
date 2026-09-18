@@ -13,8 +13,8 @@ const ModalExample = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <Container>
-      <div className='container' style={{padding: '20px'}}>
+    <Container className='page-container'>
+      <div style={{padding: '20px 0'}}>
         <Button variant='primary' onClick={handleShow}>
           Launch demo modal
         </Button>

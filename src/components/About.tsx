@@ -26,8 +26,8 @@ const External = ({href, children}: {href: string, children: ReactNode}) => (
 );
 
 const About = () => (
-  <div className='container text-left page-content' style={{width: '80%'}}>
-    <h1 className='text-info p-2'>About</h1>
+  <div className='container page-container page-content text-start'>
+    <h1 className='text-info py-2'>About</h1>
 
     <p className='lead'>
       Sandpit is a small React playground for trying out React Bootstrap components,

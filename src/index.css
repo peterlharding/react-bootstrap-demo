@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+/* Page width: Bootstrap's side gutters on small screens, capped at a readable width on large ones. */
+.container.page-container {
+  max-width: 64rem;
+}
+
 /* Long-form content pages (About, Help). */
 .page-content h2 {
   margin-top: 2rem;

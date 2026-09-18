@@ -8,6 +8,13 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Fixed
+
+- Page headings line up with the text below them instead of being indented.
+- Pages use the full width on phones, with Bootstrap's normal side gutters, and are capped at 1024px on large screens, instead of a fixed 80% width.
+- No page scrolls sideways on a phone: the colour picker link wraps, the Photoshop picker scrolls inside its own box, and the counter buttons and the Create React App command wrap.
+- Text alignment uses Bootstrap's `text-start`, so pages no longer centre their text if the Tailwind CDN fails to load.
+
 ## [0.6.0] - 2026-09-18
 
 ### Changed

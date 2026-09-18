@@ -22,7 +22,7 @@ const releases = Object.entries(notesFiles)
     .map(([path, markdown]) => ({path, html: marked.parse(markdown, {async: false})}));
 
 const ReleaseNotes = () => (
-    <div className='container text-left p-2' style={{width: '80%'}}>
+    <div className='container page-container text-start py-2'>
         <h1 className='text-primary'>Release Notes</h1>
 
         {releases.map(({path, html}) => (
