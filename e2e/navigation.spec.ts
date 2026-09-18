@@ -10,7 +10,7 @@ test('root path renders the landing page', async ({page}) => {
 
 test('deep links load directly', async ({page}) => {
   await page.goto('/two');
-  await expect(heading(page)).toHaveText('Two works!');
+  await expect(heading(page)).toHaveText('The React Counter');
 });
 
 test('navbar dropdown navigates client-side and marks the item active', async ({page}) => {
@@ -19,7 +19,7 @@ test('navbar dropdown navigates client-side and marks the item active', async ({
   await page.getByRole('button', {name: 'Experimental'}).click();
   await page.locator('.navbar').getByRole('link', {name: 'Two - The React Counter'}).click();
   await expect(page).toHaveURL('/two');
-  await expect(heading(page)).toHaveText('Two works!');
+  await expect(heading(page)).toHaveText('The React Counter');
   expect(await isSameDocument(page)).toBe(true);
 
   await page.getByRole('button', {name: 'Experimental'}).click();
@@ -41,7 +41,7 @@ test('footer links and the back button', async ({page}) => {
   await expect(heading(page)).toHaveText('Help');
   await page.goBack();
   await expect(page).toHaveURL('/two');
-  await expect(heading(page)).toHaveText('Two works!');
+  await expect(heading(page)).toHaveText('The React Counter');
 });
 
 test('landing page cards and buttons navigate client-side', async ({page}) => {
@@ -50,7 +50,7 @@ test('landing page cards and buttons navigate client-side', async ({page}) => {
   for (const [name, path, title] of [
     ['Modal Example', '/modal-example', null],
     ['One - Colour Picker', '/one', 'Working with Colour Pickers'],
-    ['Two - The React Counter', '/two', 'Two works!'],
+    ['Two - The React Counter', '/two', 'The React Counter'],
   ] as const) {
     // Click the middle of the card, not the link text: the stretched link makes the whole card clickable.
     await page.locator('.home-card', {hasText: name}).click();

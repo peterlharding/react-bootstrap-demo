@@ -26,7 +26,6 @@ export default defineConfig(({mode}) => {
           // Split large third-party libraries into their own long-cacheable chunks.
           codeSplitting: {
             groups: [
-              {name: 'lorem', test: /node_modules[\\/]react-lorem-ipsum/},
               {name: 'react', test: /node_modules[\\/](react|react-dom|react-router|scheduler)[\\/]/},
               {name: 'vendor', test: /node_modules[\\/]/},
             ],

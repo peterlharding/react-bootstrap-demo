@@ -1,111 +1,82 @@
-import { useState } from 'react';
-import {loremIpsum} from 'react-lorem-ipsum';
+import {useState, type ComponentType} from 'react';
+import {Link} from 'react-router';
 import {
   BlockPicker,
   ChromePicker,
   CirclePicker,
   GithubPicker,
   HuePicker,
-  TwitterPicker,
   PhotoshopPicker,
-  SketchPicker} from 'react-color';
+  SketchPicker,
+  TwitterPicker,
+  type Color,
+  type ColorChangeHandler,
+  type ColorResult,
+} from 'react-color';
 
-// See:
-//  * https://casesandberg.github.io/react-color/
-//  * https://fatihtelis.com/ LoremIpsum
+import './One.css';
 
-interface Color {
-  hex: string
-}
+const DOCS_URL = 'https://casesandberg.github.io/react-color/';
 
-const getText = () => {
-  return (
-    loremIpsum({ p: 3, random: true }).map((paragraph, index) => (
-      <p className="text" key={index}>
-        {paragraph}
-      </p>
-    ))
-  );
-}
+// The props every react-color picker shares.
+type PickerProps = {color?: Color, onChangeComplete?: ColorChangeHandler};
+
+const pickers: {name: string, Picker: ComponentType<PickerProps>, about: string, scroll?: boolean}[] = [
+  {name: 'Block', Picker: BlockPicker, about: 'A large preview of the colour, a set of swatches and a hex input.'},
+  {name: 'Chrome', Picker: ChromePicker, about: 'In the style of Chrome DevTools: a saturation area, hue and alpha sliders, and fields that switch between hex, RGB and HSL.'},
+  {name: 'Circle', Picker: CirclePicker, about: 'Material Design colours as circles.'},
+  {name: 'Github', Picker: GithubPicker, about: 'The palette GitHub uses for issue labels.'},
+  {name: 'Hue', Picker: HuePicker, about: 'A single hue slider. It always picks a fully saturated colour.'},
+  // The Photoshop picker is a fixed 513px wide, so it scrolls on narrow screens.
+  {name: 'Photoshop', Picker: PhotoshopPicker, about: 'A Photoshop-style dialog with HSV and RGB fields. Its OK and Cancel buttons are not wired up on this page.', scroll: true},
+  {name: 'Sketch', Picker: SketchPicker, about: 'In the style of the Sketch app: saturation, hue and alpha controls, hex and RGBA fields, and preset swatches.'},
+  {name: 'Twitter', Picker: TwitterPicker, about: 'The Twitter palette with a hex input.'},
+];
 
 const One = () => {
-  
-  const [text] = useState(getText);
+  const [colour, setColour] = useState('#ffffff');
 
-  const [background, setBackground] = useState('#fff');
+  const handleChangeComplete = (result: ColorResult) => setColour(result.hex);
 
-  const handleChangeComplete = (color: Color) => {
-    setBackground(color.hex);
-  };
-  
   return (
-      <div className='container page-container text-start' style={{background: background}}>
-          <h1 className='text-info py-2'>Working with Colour Pickers</h1>
+    <div className='container page-container page-content text-start colour-page' style={{background: colour}}>
+      <h1 className='text-info py-2'>Working with Colour Pickers</h1>
 
-          <h2 className='text-break'>See - <a href="https://casesandberg.github.io/react-color/" target="_blank" rel="noreferrer">https://casesandberg.github.io/react-color/</a></h2>
+      <p className='lead'>
+        All eight colour pickers from react-color, sharing one colour.
+        Choose a colour in any of them and the page background and every other picker follow.
+      </p>
+      <p>
+        Current colour: <code>{colour}</code>
+      </p>
 
-          <hr></hr>
+      <h2 className='h4'>How it works</h2>
+      <p>
+        The page keeps the colour in React state with <code>useState</code>.
+        Each picker is controlled: it receives the colour through its <code>color</code> prop and reports
+        a new one through <code>onChangeComplete</code>, which fires once a change is complete rather than
+        continuously while you drag.
+      </p>
+      <p>
+        Unlike the <Link to='/two'>counter</Link>, this state belongs to the page, so the colour resets when you leave it.
+      </p>
+      <p>
+        react-color has not been updated since 2022, but all eight pickers work with React 19.
+        See its <a href={DOCS_URL} target='_blank' rel='noreferrer'>documentation</a> for every option.
+      </p>
 
-          {text}
-
-          <hr></hr>
-
-          <h1 style={{padding: '10px 0'}}>Block Picker</h1>
-          <BlockPicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <h1 style={{padding: '10px 0'}}>Chrome Picker</h1>
-          <ChromePicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <h1 style={{padding: '10px 0'}}>Circle Picker</h1>
-          <CirclePicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <h1 style={{padding: '10px 0'}}>Github Picker</h1>
-          <GithubPicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-
-          <h1 style={{padding: '10px 0'}}>Hue Picker</h1>
-          <HuePicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <h1 style={{padding: '10px 0'}}>Photoshop Picker</h1>
-          {/* The Photoshop picker is a fixed 513px wide, so let it scroll on narrow screens. */}
-          <div className='overflow-x-auto pb-2'>
-            <PhotoshopPicker
-              color={ background }
-              onChangeComplete={ handleChangeComplete }
-            />
+      <h2 className='h4'>The pickers</h2>
+      {pickers.map(({name, Picker, about, scroll}) => (
+        <section key={name} className='colour-picker'>
+          <h3 className='h5'>{name} Picker</h3>
+          <p>{about}</p>
+          <div className={scroll ? 'overflow-x-auto pb-2' : undefined}>
+            <Picker color={colour} onChangeComplete={handleChangeComplete} />
           </div>
-
-          <h1 style={{padding: '10px 0'}}>Sketch Picker</h1>
-          <SketchPicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <h1 style={{padding: '10px 0'}}>Twitter Picker</h1>
-          <TwitterPicker
-            color={ background }
-            onChangeComplete={ handleChangeComplete }
-          />
-
-          <p style={{padding: '20px'}}></p>
-
-      </div>
+        </section>
+      ))}
+    </div>
   );
-}
+};
 
 export default One;

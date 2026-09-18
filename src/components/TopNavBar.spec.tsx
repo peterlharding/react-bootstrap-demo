@@ -48,7 +48,7 @@ describe('TopNavBar', () => {
     await user.click(navbar().getByRole('button', {name: 'Experimental'}));
     const menu = () => within(document.querySelector('.navbar .dropdown-menu') as HTMLElement);
     await user.click(menu().getByText('Two - The React Counter'));
-    expect(screen.getByRole('heading', {name: 'Two works!'})).toBeInTheDocument();
+    expect(screen.getByRole('heading', {name: 'The React Counter', level: 1})).toBeInTheDocument();
     expect(menu().getByText('Two - The React Counter')).toHaveClass('active');
     expect(navbar().getByRole('link', {name: 'Home'})).not.toHaveClass('active');
   });

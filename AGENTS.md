@@ -28,13 +28,12 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 
 - `index.html` lives at the repo root and loads `/src/index.tsx` as the entry module; `public/` holds static files served from `/`.
 - TypeScript uses project references (app, test, node and e2e projects); see Testing below for what each covers.
-- `vite.config.ts` splits third-party code into `lorem`, `react` (React, React DOM, React Router) and `vendor` chunks to keep each under the 500 kB warning; `react-lorem-ipsum` alone is over 400 kB.
+- `vite.config.ts` splits third-party code into `react` (React, React DOM, React Router) and `vendor` chunks to keep each under the 500 kB warning.
 - Two packages are pinned on purpose, so `npm outdated` lists them as behind:
   - `typescript` stays on `~6.0` because typescript-eslint's peer range is `<6.1.0`; move to TypeScript 7 only once typescript-eslint supports it.
   - `@types/node` tracks the Node major the project runs on (currently Node 24, so `^24`); bump it together with Node, never ahead of it, or the types will allow APIs the runtime lacks.
 - Tailwind 1.9 is loaded from unpkg in `index.html`, in addition to Bootstrap.
-- `react-color` and `react-lorem-ipsum` are unmaintained and rely on function-component `defaultProps`, which React 19 ignores.
-  Pass their options explicitly (for example `loremIpsum({p: 3, random: true})`) instead of relying on library defaults.
+- `react-color` is unmaintained and relies on function-component `defaultProps`, which React 19 ignores; its pickers still work, but pass props explicitly rather than relying on its defaults.
 
 ## Architecture
 

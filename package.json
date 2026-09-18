@@ -24,7 +24,6 @@
     "react-bootstrap": "^2.10.10",
     "react-color": "^2.19.3",
     "react-dom": "^19.3.0",
-    "react-lorem-ipsum": "^1.4.10",
     "react-redux": "^9.3.0",
     "react-router": "^8.4.0"
   },

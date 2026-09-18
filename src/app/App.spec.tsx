@@ -12,7 +12,7 @@ describe('App routes', () => {
     ['/home', 'Sandpit'],
     ['/modal-example', null],
     ['/one', 'Working with Colour Pickers'],
-    ['/two', 'Two works!'],
+    ['/two', 'The React Counter'],
     ['/help', 'Help'],
     ['/release-notes', 'Release Notes'],
     ['/about', 'About'],

@@ -7,6 +7,8 @@ import {experiments} from '../app/experiments';
 import {renderWithProviders} from '../test/render';
 import About from './About';
 import Help from './Help';
+import One from './One';
+import Two from './Two';
 import Home from './Home';
 import ReleaseNotes from './ReleaseNotes';
 
@@ -106,5 +108,50 @@ describe('Help', () => {
     renderWithProviders(<Help />);
     expect(screen.getByText('setup/env.template')).toBeInTheDocument();
     expect(existsSync('setup/env.template')).toBe(true);
+  });
+});
+
+describe('Two', () => {
+  it('shows the working counter', () => {
+    renderWithProviders(<Two />);
+    expect(screen.getByRole('heading', {name: 'The React Counter', level: 1})).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Increment value'})).toBeInTheDocument();
+  });
+
+  it('explains only buttons that the counter really has', () => {
+    renderWithProviders(<Two />);
+    const explained = [...document.querySelectorAll('.info-table th')]
+      .map((th) => th.textContent!)
+      .filter((label) => !label.startsWith('src/'));
+    expect(explained).toEqual(['- and +', 'Add Amount', 'Add Async', 'Add If Odd']);
+    for (const label of explained.slice(1)) {
+      expect(screen.getByRole('button', {name: label})).toBeInTheDocument();
+    }
+  });
+
+  it('points at code files that exist', () => {
+    renderWithProviders(<Two />);
+    const paths = [...document.querySelectorAll('.info-table th code')].map((c) => c.textContent!);
+    expect(paths.length).toBeGreaterThan(0);
+    for (const path of paths) expect(existsSync(path), path).toBe(true);
+  });
+});
+
+describe('One', () => {
+  it('describes each of the eight pickers', () => {
+    renderWithProviders(<One />);
+    const names = screen.getAllByRole('heading', {level: 3}).map((h) => h.textContent);
+    expect(names).toEqual(['Block', 'Chrome', 'Circle', 'Github', 'Hue', 'Photoshop', 'Sketch', 'Twitter'].map((n) => `${n} Picker`));
+    for (const section of document.querySelectorAll('.colour-picker')) {
+      expect(section.querySelector('p')!.textContent!.length).toBeGreaterThan(10);
+    }
+  });
+
+  it('shows the chosen colour and applies it to the page', async () => {
+    const {user} = renderWithProviders(<One />);
+    expect(screen.getByText('#ffffff', {selector: 'code'})).toBeInTheDocument();
+    await user.click(document.querySelector('div[title="#f44336"]')!);
+    expect(await screen.findByText('#f44336', {selector: 'code'})).toBeInTheDocument();
+    expect(document.querySelector<HTMLElement>('.colour-page')!.style.background).toBe('rgb(244, 67, 54)');
   });
 });

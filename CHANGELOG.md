@@ -8,6 +8,15 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Changed
+
+- The One page explains how its eight react-color pickers share one colour in React state, shows the current colour, and describes each picker, instead of placeholder text.
+- The Two page is now "The React Counter": the counter comes first, followed by what each button demonstrates in Redux Toolkit, how the state survives navigation, where the code lives and where it came from, instead of placeholder text.
+
+### Removed
+
+- `react-lorem-ipsum`, no longer used by any page, which also drops its 428 kB chunk from the build.
+
 ## [0.7.0] - 2026-09-18
 
 ### Fixed
