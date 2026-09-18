@@ -4,21 +4,23 @@ import {setupListeners} from '@reduxjs/toolkit/query'
 import counterReducer from '../features/counter/counterSlice';
 
 
-export const store = configureStore({
+// A factory so tests can create an isolated store; the app uses the `store` singleton below.
+export const makeStore = () => configureStore({
   reducer: {
-
     counter: counterReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
+
+export const store = makeStore();
 
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 setupListeners(store.dispatch);
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore['dispatch'];
+export type RootState = ReturnType<AppStore['getState']>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

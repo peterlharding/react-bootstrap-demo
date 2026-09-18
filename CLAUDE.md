@@ -16,8 +16,10 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 - `npm run build` - typecheck with `tsc -b`, then production build into `dist/`.
 - `npm run preview` - serve the built `dist/` locally.
 - `npm run lint` - ESLint (flat config in `eslint.config.js`: typescript-eslint, react-hooks, react-refresh).
-- `npm test` - Vitest in watch mode; `npx vitest run` for a single run.
+- `npm test` - Vitest unit and component tests in watch mode; `npx vitest run` for a single run.
 - Single test: `npx vitest run src/features/counter/counterSlice.spec.ts`, or add `-t "<test name>"`.
+- `npm run test:e2e` - Playwright E2E tests against the production build (builds, then serves `vite preview` on 127.0.0.1:4173).
+  Single file: `npx playwright test e2e/navigation.spec.ts`; one-time browser setup: `npx playwright install chromium`.
 - `npm run release -- <version|major|minor|patch>` - cut and publish a release (see below); add `--no-publish` to only update files.
 - `npm run release:publish -- <version>` - create the GitHub Release for an already pushed tag.
 - `npm run release-notes` / `npm run release-notes:check` - regenerate, or verify, `release_notes/` from `CHANGELOG.md`.
@@ -26,7 +28,6 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 
 - `index.html` lives at the repo root and loads `/src/index.tsx` as the entry module; `public/` holds static files served from `/`.
 - TypeScript uses project references: `tsconfig.app.json` covers `src/` (with `vite/client` and `vitest/globals` types), `tsconfig.node.json` covers `vite.config.ts`.
-- Vitest is configured in `vite.config.ts` with `globals: true` and the `jsdom` environment, so specs use `describe`/`it`/`expect` without imports.
 - `vite.config.ts` splits third-party code into `vendor` and `lorem` chunks; `react-lorem-ipsum` alone is over 400 kB, so keep it out of the vendor chunk to stay under the 500 kB chunk warning.
 - TypeScript is pinned to 6.x because typescript-eslint does not support TypeScript 7 yet.
 - Tailwind 1.9 is loaded from unpkg in `index.html`, in addition to Bootstrap.
@@ -45,6 +46,16 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 - `src/features/<name>/` follows the Redux Toolkit "feature folder" pattern: `<name>Slice.ts` (slice, actions, selectors, thunks), a component, CSS module and `*.spec.ts` reducer tests.
   New slices must be registered in the `reducer` map in `store.ts`.
   `setupListeners` from RTK Query is already wired up in `store.ts`, ready for RTK Query APIs.
+
+## Testing
+
+- Component tests are `*.spec.tsx` next to the code, run by Vitest (`globals: true`, jsdom, setup in `src/test/setup.ts` with jest-dom matchers).
+  Render through `renderWithProviders` in `src/test/render.tsx`: it gives each test a fresh store from `makeStore()` and a `MemoryRouter` at the requested `route`, and returns a `user-event` instance.
+  `App` has no router of its own (`BrowserRouter` lives in `src/index.tsx`) precisely so tests can mount it at any URL.
+- E2E tests live in `e2e/` and import `test`/`expect` from `e2e/fixtures.ts`, whose auto fixture fails any test that logs a console error or warning or throws.
+  Vitest excludes `e2e/`; Playwright's `testDir` is `e2e/`.
+- TypeScript projects: `tsconfig.app.json` (app code, no Node types), `tsconfig.test.json` (specs, adds Vitest and Node types), `tsconfig.node.json` (`vite.config.ts`), `tsconfig.e2e.json` (Playwright, adds DOM lib for `page.evaluate`).
+- The app loads Tailwind from unpkg at runtime, so E2E tests need outbound network access.
 
 ## Changelog and releases
 

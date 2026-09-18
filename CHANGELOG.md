@@ -8,6 +8,15 @@ Add entries under `Unreleased` as changes are made.
 
 ## [Unreleased]
 
+### Added
+
+- Playwright E2E tests (`npm run test:e2e`) against the production build, covering navigation, the Redux counter, colour pickers, the modal and release notes, and failing on any console error.
+- Vitest and Testing Library component tests for routes, the navbar, the counter and the pages.
+
+### Changed
+
+- `BrowserRouter` moved from `App` to `src/index.tsx`, and `store.ts` exports a `makeStore()` factory, so tests can render the app with their own router and store.
+
 ## [0.4.0] - 2026-09-18
 
 ### Changed

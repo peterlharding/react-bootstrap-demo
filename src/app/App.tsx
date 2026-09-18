@@ -1,6 +1,5 @@
 
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link
@@ -25,7 +24,6 @@ import './App.css';
 export const App = () => {
   return (
     <div className='app'>
-    <Router>
       <HeaderFooterLayout>
         <HeaderFooterLayout.Header>
           <TopNavBar />
@@ -66,9 +64,6 @@ export const App = () => {
           </div>
         </HeaderFooterLayout.Footer>
       </HeaderFooterLayout>
-
-    </Router>
-
     </div>
   );
 }
