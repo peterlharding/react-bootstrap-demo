@@ -16,7 +16,8 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 - `npm run lint` - ESLint (flat config in `eslint.config.js`: typescript-eslint, react-hooks, react-refresh).
 - `npm test` - Vitest in watch mode; `npx vitest run` for a single run.
 - Single test: `npx vitest run src/features/counter/counterSlice.spec.ts`, or add `-t "<test name>"`.
-- `npm run release -- <version|major|minor|patch>` - cut a release (see below).
+- `npm run release -- <version|major|minor|patch>` - cut and publish a release (see below); add `--no-publish` to only update files.
+- `npm run release:publish -- <version>` - create the GitHub Release for an already pushed tag.
 - `npm run release-notes` / `npm run release-notes:check` - regenerate, or verify, `release_notes/` from `CHANGELOG.md`.
 
 ## Build and tooling notes
@@ -44,6 +45,8 @@ It was originally a Create React App project; the Redux `counter` feature (from 
 - `CHANGELOG.md` is hand-maintained in Keep a Changelog format; add entries under `## [Unreleased]` as part of each change.
 - `release_notes/v<version>.md` files are generated from `CHANGELOG.md` by `scripts/changelog.mjs`; never edit them by hand.
 - `npm run release -- <version>` moves the Unreleased entries into a dated version section, bumps `package.json` via `npm version --no-git-tag-version`, and regenerates the notes.
-  It refuses to run when Unreleased is empty or the version is not newer than the latest release.
+  It then commits `Release <version>`, creates an annotated `v<version>` tag, pushes both atomically and runs `gh release create` with the changelog section as the body.
+- Before touching any file it checks that Unreleased is non-empty, the version is newer than the latest release, `gh` is logged in, the working tree is clean, the branch matches its upstream and the tag does not exist.
+  If only the GitHub step fails, rerun it with `npm run release:publish -- <version>`.
 - The pure parsing and rendering logic lives in `scripts/changelog-lib.mjs`, tested by `scripts/changelog-lib.spec.mjs` (run with the normal Vitest suite).
 - The in-app Release Notes page (`src/components/ReleaseNotes.tsx`) bundles `release_notes/v*.md` via `import.meta.glob` and renders them with `marked`, newest first.

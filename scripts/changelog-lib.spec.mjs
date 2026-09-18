@@ -2,8 +2,10 @@ import {
   bumpVersion,
   compareVersions,
   cutRelease,
+  findRelease,
   GENERATED_HEADER,
   parseChangelog,
+  renderGitHubReleaseBody,
   renderReleaseNotes,
 } from './changelog-lib.mjs';
 
@@ -101,6 +103,20 @@ describe('versions', () => {
 
   it('compares numerically rather than lexically', () => {
     expect(compareVersions('0.10.0', '0.9.0')).toBeGreaterThan(0);
+  });
+});
+
+describe('findRelease', () => {
+  it('returns the named release and rejects unknown versions', () => {
+    expect(findRelease(changelog, '0.1.0').body).toBe('### Added\n\n- First.');
+    expect(() => findRelease(changelog, '9.9.9')).toThrow('no [9.9.9] release');
+  });
+});
+
+describe('renderGitHubReleaseBody', () => {
+  it('renders only the promoted body', () => {
+    expect(renderGitHubReleaseBody({name: '0.2.0', date: '2026-09-18', body: '### Changed\n\n- Old change.'}))
+      .toBe('## Changed\n\n- Old change.\n');
   });
 });
 

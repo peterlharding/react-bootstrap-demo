@@ -78,10 +78,21 @@ export const cutRelease = (text, version, date) => {
   return [preamble, '## [Unreleased]\n', ...released.map(renderSection)].join('\n\n').replace(/\n{3,}/g, '\n\n');
 };
 
+const promoteHeadings = (body) => body.replace(/^###(?=\s)/gm, '##');
+
 // Renders one release as a standalone Markdown document, promoting `###` headings to `##`.
-export const renderReleaseNotes = ({name, date, body}) => {
-  const content = body.replace(/^###(?=\s)/gm, '##');
-  return `${GENERATED_HEADER}\n\n# v${name}\n\nReleased ${date}.\n\n${content}\n`;
+export const renderReleaseNotes = ({name, date, body}) =>
+  `${GENERATED_HEADER}\n\n# v${name}\n\nReleased ${date}.\n\n${promoteHeadings(body)}\n`;
+
+// Renders the body of a GitHub Release; GitHub shows the tag, title and date itself.
+export const renderGitHubReleaseBody = ({body}) => `${promoteHeadings(body)}\n`;
+
+export const findRelease = (text, version) => {
+  const release = parseChangelog(text).releases.find((r) => r.name === version);
+  if (!release) {
+    throw new Error(`CHANGELOG.md has no [${version}] release section`);
+  }
+  return release;
 };
 
 export const releaseNotesFileName = (version) => `v${version}.md`;

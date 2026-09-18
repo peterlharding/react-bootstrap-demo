@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "release": "node scripts/changelog.mjs release",
     "release-notes": "node scripts/changelog.mjs notes",
-    "release-notes:check": "node scripts/changelog.mjs notes --check"
+    "release-notes:check": "node scripts/changelog.mjs notes --check",
+    "release:publish": "node scripts/changelog.mjs publish"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.0",

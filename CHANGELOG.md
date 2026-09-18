@@ -4,9 +4,14 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Add entries under `Unreleased` as changes are made.
-`npm run release -- <version>` moves them into a dated version section and generates `release_notes/v<version>.md`.
+`npm run release -- <version>` moves them into a dated version section, generates `release_notes/v<version>.md`, then commits, tags, pushes and creates the GitHub Release.
 
 ## [Unreleased]
+
+### Added
+
+- `npm run release` now commits, tags and pushes the release and creates the GitHub Release from the changelog; `--no-publish` only updates the files.
+- `npm run release:publish -- <version>` creates the GitHub Release for an already pushed tag.
 
 ## [0.2.0] - 2026-09-18
 
